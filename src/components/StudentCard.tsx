@@ -72,15 +72,18 @@ export function StudentCard({
 
         <div className="id-card-content id-card-back-content">
           <Logo variant="light" size="sm" />
-          <p className="back-title">Validação digital</p>
-          <p className="back-text">
-            Escaneie o QR Code para confirmar a autenticidade desta carteirinha.
-          </p>
+
+          <div className="back-copy">
+            <p className="back-title">Validação digital</p>
+            <p className="back-text">
+              Escaneie o QR Code para confirmar a autenticidade desta carteirinha.
+            </p>
+          </div>
 
           <div className="qr-wrap">
             <QRCodeSVG
               value={validationUrl}
-              size={132}
+              size={118}
               level="M"
               bgColor="#ffffff"
               fgColor="#0B3D3D"

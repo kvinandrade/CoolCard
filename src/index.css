@@ -389,38 +389,52 @@ a {
 
 .id-card-back-content {
   align-items: center;
+  justify-content: space-between;
   text-align: center;
-  gap: 0.65rem;
+  gap: 0;
+}
+
+.back-copy {
+  display: block;
+  width: 100%;
+  margin: 0.85rem 0 0.7rem;
 }
 
 .back-title {
-  margin: 0.35rem 0 0;
-  font-size: 1rem;
+  display: block;
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
   font-weight: 800;
+  line-height: 1.25;
 }
 
 .back-text {
+  display: block;
   margin: 0;
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-size: 0.74rem;
+  line-height: 1.4;
   opacity: 0.92;
-  max-width: 18rem;
+  max-width: 14.5rem;
+  margin-inline: auto;
 }
 
 .qr-wrap {
-  margin: 0.35rem 0;
-  padding: 0.55rem;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.45rem;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+  line-height: 0;
 }
 
 .back-meta {
-  margin-top: auto;
   display: grid;
   gap: 0.2rem;
+  margin-top: 0.7rem;
   font-size: 0.72rem;
   font-weight: 600;
+  line-height: 1.3;
   opacity: 0.92;
 }
 
