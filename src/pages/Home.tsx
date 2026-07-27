@@ -5,7 +5,11 @@ import { StudentForm } from '../components/StudentForm'
 import type { StudentData } from '../types'
 import { buildValidationUrl } from '../config'
 import { onlyDigits } from '../utils/cpf'
-import { downloadAsImage, downloadAsPdf } from '../utils/download'
+import {
+  downloadAsImage,
+  downloadAsPdf,
+  downloadAsPrintPdf,
+} from '../utils/download'
 
 const emptyData: StudentData = {
   nome: '',
@@ -20,7 +24,7 @@ const emptyData: StudentData = {
 export function Home() {
   const [data, setData] = useState<StudentData>(emptyData)
   const [generated, setGenerated] = useState(false)
-  const [busy, setBusy] = useState<'img' | 'pdf' | null>(null)
+  const [busy, setBusy] = useState<'img' | 'pdf' | 'print' | null>(null)
   const [error, setError] = useState<string | null>(null)
   const frontRef = useRef<HTMLDivElement>(null)
   const backRef = useRef<HTMLDivElement>(null)
@@ -33,7 +37,7 @@ export function Home() {
     validade: data.dataTermino,
   })
 
-  async function handleDownload(kind: 'img' | 'pdf') {
+  async function handleDownload(kind: 'img' | 'pdf' | 'print') {
     if (!frontRef.current || !backRef.current) return
     setBusy(kind)
     setError(null)
@@ -41,6 +45,8 @@ export function Home() {
     try {
       if (kind === 'img') {
         await downloadAsImage(frontRef.current, backRef.current, base)
+      } else if (kind === 'print') {
+        await downloadAsPrintPdf(frontRef.current, backRef.current, base)
       } else {
         await downloadAsPdf(frontRef.current, backRef.current, base)
       }
@@ -103,12 +109,24 @@ export function Home() {
               </button>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 disabled={busy !== null}
                 onClick={() => handleDownload('pdf')}
               >
                 {busy === 'pdf' ? 'Gerando…' : 'Baixar PDF'}
               </button>
+              <button
+                type="button"
+                className="btn btn-primary download-print"
+                disabled={busy !== null}
+                onClick={() => handleDownload('print')}
+              >
+                {busy === 'print' ? 'Gerando…' : 'Baixar para imprimir (A4)'}
+              </button>
+              <p className="download-print-hint">
+                Folha A4 com frente e verso em tamanho real (54×86 mm) para cortar e
+                plastificar.
+              </p>
             </div>
           )}
 
