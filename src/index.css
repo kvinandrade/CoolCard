@@ -145,6 +145,7 @@ a {
 
 .field-hint {
   font-size: 0.82rem;
+  color: var(--muted);
 }
 
 .field-hint.error {
@@ -385,10 +386,6 @@ a {
   font-weight: 500;
   line-height: 1.25;
   word-break: break-word;
-}
-
-.field-hint {
-  color: var(--muted);
 }
 
 .id-card-back-content {
