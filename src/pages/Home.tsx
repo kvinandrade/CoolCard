@@ -3,6 +3,7 @@ import { Logo } from '../components/Logo'
 import { StudentCard } from '../components/StudentCard'
 import { StudentForm } from '../components/StudentForm'
 import type { StudentData } from '../types'
+import { buildValidationUrl } from '../config'
 import { onlyDigits } from '../utils/cpf'
 import { downloadAsImage, downloadAsPdf } from '../utils/download'
 
@@ -23,7 +24,12 @@ export function Home() {
   const frontRef = useRef<HTMLDivElement>(null)
   const backRef = useRef<HTMLDivElement>(null)
 
-  const validationUrl = buildValidationUrl(data)
+  const validationUrl = buildValidationUrl({
+    cpf: onlyDigits(data.cpf),
+    nome: data.nome.trim(),
+    curso: data.curso,
+    validade: data.dataTermino,
+  })
 
   async function handleDownload(kind: 'img' | 'pdf') {
     if (!frontRef.current || !backRef.current) return
@@ -123,15 +129,3 @@ export function Home() {
   )
 }
 
-function buildValidationUrl(data: StudentData): string {
-  const params = new URLSearchParams({
-    cpf: onlyDigits(data.cpf),
-    nome: data.nome.trim(),
-    curso: data.curso,
-    validade: data.dataTermino,
-  })
-  const origin =
-    typeof window !== 'undefined' ? window.location.origin : 'https://coolcard.app'
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
-  return `${origin}${base}/validar?${params.toString()}`
-}

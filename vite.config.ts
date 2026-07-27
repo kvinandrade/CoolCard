@@ -1,10 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// GitHub Pages serve o app em /CoolCard/
-const base = process.env.GITHUB_ACTIONS ? '/CoolCard/' : '/'
-
+// Domínio próprio (coolcard.is-a.dev) serve na raiz
 export default defineConfig({
-  base,
+  base: '/',
   plugins: [react()],
 })
