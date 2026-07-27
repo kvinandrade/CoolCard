@@ -7,6 +7,7 @@ export function Validate() {
   const [params] = useSearchParams()
   const cpf = onlyDigits(params.get('cpf') ?? '')
   const nome = (params.get('nome') ?? '').trim()
+  const universidade = (params.get('universidade') ?? '').trim()
   const curso = (params.get('curso') ?? '').trim()
   const validade = params.get('validade') ?? ''
 
@@ -60,6 +61,12 @@ export function Validate() {
               <>
                 <dt>Nome</dt>
                 <dd>{nome.toUpperCase()}</dd>
+              </>
+            )}
+            {universidade && (
+              <>
+                <dt>Instituição</dt>
+                <dd>{universidade}</dd>
               </>
             )}
             {curso && (

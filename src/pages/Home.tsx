@@ -9,6 +9,7 @@ import { downloadAsImage, downloadAsPdf } from '../utils/download'
 
 const emptyData: StudentData = {
   nome: '',
+  universidade: '',
   cpf: '',
   curso: '',
   dataInicio: '',
@@ -27,6 +28,7 @@ export function Home() {
   const validationUrl = buildValidationUrl({
     cpf: onlyDigits(data.cpf),
     nome: data.nome.trim(),
+    universidade: data.universidade.trim(),
     curso: data.curso,
     validade: data.dataTermino,
   })

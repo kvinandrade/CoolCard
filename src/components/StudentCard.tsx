@@ -18,6 +18,8 @@ export function StudentCard({
   validationUrl,
 }: StudentCardProps) {
   const nome = data.nome.trim().toUpperCase() || 'SEU NOME AQUI'
+  const universidade =
+    data.universidade.trim().toUpperCase() || 'SUA UNIVERSIDADE'
   const curso = data.curso.trim().toUpperCase() || 'SEU CURSO'
   const ra = onlyDigits(data.cpf) || '00000000000'
   const validade = formatValidity(data.dataTermino)
@@ -52,6 +54,7 @@ export function StudentCard({
 
           <div className="id-fields">
             <Field label="Nome" value={nome} />
+            <Field label="Instituição" value={universidade} />
             <Field label="Curso" value={curso} />
             <Field label="RA" value={ra} />
             <div className="id-fields-row">
@@ -92,6 +95,7 @@ export function StudentCard({
           </div>
 
           <div className="back-meta">
+            <span>{universidade}</span>
             <span>RA: {ra}</span>
             <span>Validade: {validade}</span>
           </div>

@@ -1,5 +1,5 @@
 import type { ChangeEvent, FormEvent } from 'react'
-import { CURSOS, type StudentData } from '../types'
+import { CURSOS, UNIVERSIDADES, type StudentData } from '../types'
 import { formatCpf, isValidCpf, onlyDigits } from '../utils/cpf'
 import { formatValidity } from '../utils/validity'
 
@@ -25,6 +25,7 @@ export function StudentForm({
 
   const canSubmit =
     data.nome.trim().length >= 3 &&
+    data.universidade.trim().length >= 2 &&
     cpfOk &&
     Boolean(data.curso) &&
     datesOk &&
@@ -63,6 +64,28 @@ export function StudentForm({
           autoComplete="name"
           required
         />
+      </div>
+
+      <div className="field">
+        <label htmlFor="universidade">Universidade / instituição</label>
+        <input
+          id="universidade"
+          type="text"
+          list="universidades-sugestoes"
+          placeholder="Selecione ou digite o nome"
+          value={data.universidade}
+          onChange={(e) => update('universidade', e.target.value)}
+          autoComplete="organization"
+          required
+        />
+        <datalist id="universidades-sugestoes">
+          {UNIVERSIDADES.map((uni) => (
+            <option key={uni} value={uni} />
+          ))}
+        </datalist>
+        <span className="field-hint">
+          Escolha uma sugestão ou digite o nome da sua instituição.
+        </span>
       </div>
 
       <div className="field">
