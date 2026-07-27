@@ -25,6 +25,8 @@ npm run build
 npm run preview
 ```
 
-## Publicação
+## App online
 
-O app está configurado para deploy na Vercel (SPA com rewrite para `index.html`).
+Acesse gratuitamente em: https://kvinandrade.github.io/CoolCard/
+
+O deploy é automático via GitHub Pages a cada push na branch `master`.
