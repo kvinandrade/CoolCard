@@ -27,9 +27,8 @@ npm run preview
 
 ## App online
 
-- Site / gerador: https://coolcard.is-a.dev/
-- Validação (QR Code): https://coolcard.is-a.dev/validar
+Acesse gratuitamente em: https://kvinandrade.github.io/CoolCard/
 
-O QR Code da carteirinha sempre usa o domínio próprio `coolcard.is-a.dev` (não o link do GitHub).
+Validação (QR Code): https://kvinandrade.github.io/CoolCard/validar
 
 O deploy é automático via GitHub Pages a cada push na branch `master`.

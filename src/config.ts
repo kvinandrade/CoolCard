@@ -1,6 +1,3 @@
-/** Domínio público da CoolCard (QR Code e validação). */
-export const SITE_ORIGIN = 'https://coolcard.is-a.dev'
-
 export function buildValidationUrl(params: {
   cpf: string
   nome: string
@@ -15,5 +12,10 @@ export function buildValidationUrl(params: {
     curso: params.curso,
     validade: params.validade,
   })
-  return `${SITE_ORIGIN}/validar?${search.toString()}`
+  const origin =
+    typeof window !== 'undefined'
+      ? window.location.origin
+      : 'https://kvinandrade.github.io'
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+  return `${origin}${base}/validar?${search.toString()}`
 }
