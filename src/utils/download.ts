@@ -6,6 +6,7 @@ async function captureElement(element: HTMLElement): Promise<string> {
     cacheBust: true,
     pixelRatio: 2,
     backgroundColor: '#ffffff',
+    skipFonts: true,
   })
 }
 
@@ -168,10 +169,9 @@ function drawCutGuide(
     pdf.line(x1, y1, x2, y2)
   }
 
-  pdf.setLineDashPattern([1.2, 1.2], 0)
   pdf.setDrawColor(140, 165, 165)
+  pdf.setLineWidth(0.25)
   pdf.rect(x - 0.4, y - 0.4, w + 0.8, h + 0.8)
-  pdf.setLineDashPattern([], 0)
 }
 
 function loadImage(src: string): Promise<HTMLImageElement> {

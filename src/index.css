@@ -222,6 +222,11 @@ a {
   grid-column: 1 / -1;
 }
 
+.form-checklist {
+  margin: 0;
+  text-align: center;
+}
+
 .download-print-hint {
   grid-column: 1 / -1;
   margin: 0;

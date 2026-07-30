@@ -1,6 +1,6 @@
-import { QRCodeSVG } from 'qrcode.react'
+import { QRCodeCanvas } from 'qrcode.react'
 import type { StudentData } from '../types'
-import { onlyDigits } from '../utils/cpf'
+import { displayMatricula } from '../utils/cpf'
 import { formatPeriod, formatValidity } from '../utils/validity'
 import { Logo } from './Logo'
 
@@ -21,7 +21,7 @@ export function StudentCard({
   const universidade =
     data.universidade.trim().toUpperCase() || 'SUA UNIVERSIDADE'
   const curso = data.curso.trim().toUpperCase() || 'SEU CURSO'
-  const ra = onlyDigits(data.cpf) || '00000000000'
+  const ra = displayMatricula(data.cpf) || '00000000'
   const validade = formatValidity(data.dataTermino)
   const periodo = formatPeriod(data.dataInicio, data.dataTermino)
 
@@ -84,7 +84,7 @@ export function StudentCard({
           </div>
 
           <div className="qr-wrap">
-            <QRCodeSVG
+            <QRCodeCanvas
               value={validationUrl}
               size={118}
               level="M"

@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { Logo } from '../components/Logo'
-import { formatCpf, isValidCpf, onlyDigits } from '../utils/cpf'
+import { displayMatricula, isValidMatricula, onlyDigits } from '../utils/cpf'
 import { formatValidity, isCardCurrentlyValid } from '../utils/validity'
 
 export function Validate() {
@@ -11,7 +11,7 @@ export function Validate() {
   const curso = (params.get('curso') ?? '').trim()
   const validade = params.get('validade') ?? ''
 
-  const hasData = cpf.length === 11 && isValidCpf(cpf) && Boolean(validade)
+  const hasData = isValidMatricula(cpf) && Boolean(validade)
   const stillValid = hasData && isCardCurrentlyValid(validade)
 
   return (
@@ -76,7 +76,7 @@ export function Validate() {
               </>
             )}
             <dt>RA / CPF</dt>
-            <dd>{formatCpf(cpf)}</dd>
+            <dd>{displayMatricula(cpf)}</dd>
             <dt>Validade</dt>
             <dd>{formatValidity(validade)}</dd>
           </dl>

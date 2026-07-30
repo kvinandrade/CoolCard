@@ -1,6 +1,6 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { CURSOS, UNIVERSIDADES, type StudentData } from '../types'
-import { formatCpf, isValidCpf, onlyDigits } from '../utils/cpf'
+import { formatMatricula, isValidMatricula, onlyDigits } from '../utils/cpf'
 import { formatValidity } from '../utils/validity'
 
 interface StudentFormProps {
@@ -17,7 +17,7 @@ export function StudentForm({
   generated,
 }: StudentFormProps) {
   const cpfDigits = onlyDigits(data.cpf)
-  const cpfOk = cpfDigits.length === 11 && isValidCpf(data.cpf)
+  const matriculaOk = isValidMatricula(data.cpf)
   const datesOk =
     Boolean(data.dataInicio) &&
     Boolean(data.dataTermino) &&
@@ -26,10 +26,18 @@ export function StudentForm({
   const canSubmit =
     data.nome.trim().length >= 3 &&
     data.universidade.trim().length >= 2 &&
-    cpfOk &&
+    matriculaOk &&
     Boolean(data.curso) &&
     datesOk &&
     Boolean(data.foto)
+
+  const missingFields: string[] = []
+  if (data.nome.trim().length < 3) missingFields.push('nome completo')
+  if (data.universidade.trim().length < 2) missingFields.push('universidade')
+  if (!matriculaOk) missingFields.push('CPF ou RA válido (8 a 14 dígitos)')
+  if (!data.curso) missingFields.push('curso')
+  if (!datesOk) missingFields.push('datas de início e término')
+  if (!data.foto) missingFields.push('foto')
 
   function update<K extends keyof StudentData>(key: K, value: StudentData[K]) {
     onChange({ ...data, [key]: value })
@@ -89,18 +97,20 @@ export function StudentForm({
       </div>
 
       <div className="field">
-        <label htmlFor="cpf">CPF (número de matrícula / RA)</label>
+        <label htmlFor="cpf">CPF ou RA (matrícula)</label>
         <input
           id="cpf"
           type="text"
           inputMode="numeric"
-          placeholder="000.000.000-00"
+          placeholder="CPF ou número de matrícula"
           value={data.cpf}
-          onChange={(e) => update('cpf', formatCpf(e.target.value))}
+          onChange={(e) => update('cpf', formatMatricula(e.target.value))}
           required
         />
-        {cpfDigits.length === 11 && !cpfOk && (
-          <span className="field-hint error">CPF inválido</span>
+        {cpfDigits.length > 0 && !matriculaOk && (
+          <span className="field-hint error">
+            Informe um CPF ou RA com 8 a 14 dígitos
+          </span>
         )}
       </div>
 
@@ -170,6 +180,12 @@ export function StudentForm({
       <button type="submit" className="btn btn-primary" disabled={!canSubmit}>
         {generated ? 'Atualizar carteirinha' : 'Gerar carteirinha'}
       </button>
+
+      {!canSubmit && missingFields.length > 0 && (
+        <p className="field-hint form-checklist">
+          Falta preencher: {missingFields.join(', ')}.
+        </p>
+      )}
     </form>
   )
 }
